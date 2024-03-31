@@ -14,33 +14,57 @@
 // 4 3 4 1
 // 2 9 25 4
 
-int[ , ] CreateMatrixRndInt(int rows, int columns, int min, int max)
+int[,] CreateMatrixRndInt(int rows, int columns, int min, int max)
 {
-    int[,] array = new int[rows, columns];
+    //                       0     1
+    int[,] matrix = new int[rows, columns];
     Random rnd = new Random();
 
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        array[i] = rnd.Next(min, max);
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            matrix[i, j] = rnd.Next(min, max);
+        }
+        
     }
 
-    return array;
+    return matrix;
 }
 
-void PrintArray(int[] array)
+void PrintMatrix(int[,] matrix)
 {
-    Console.Write("[");
-    for (int i = 0; i < array.Length; i++)
+   
+    for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        if (i < array.Length - 1)
+        // Console.Write("|");
+        for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            Console.Write($"{array[i]}, ");
+            Console.Write($"{matrix[i,j], 5}");  // цифра 5 для читаемости выделяет 5 мест для символов
         }
-        else
-        {
-            Console.Write($"{array[i]}");
-        }
-
+        // Console.WriteLine("|");
+        Console.WriteLine();
     }
-    Console.Write("]");
 }
+
+void ReplaceElemEvenIdxToSquare(int[,] matrix)
+{
+    for (int i = 0; i < matrix.GetLength(0); i+=2)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j+=2)
+        {
+            // if (i % 2 == 0 && j % 2 == 0)
+            // {
+           matrix[i, j] *= matrix[i, j];
+            // }
+        }
+    }
+}
+
+int[,] array2d = CreateMatrixRndInt(3, 4, 1, 10);
+PrintMatrix(array2d);
+
+ReplaceElemEvenIdxToSquare(array2d); 
+Console.WriteLine();
+PrintMatrix(array2d);
+
